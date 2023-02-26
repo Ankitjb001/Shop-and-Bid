@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { MDBBadge, MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { viewUsers } from '../service/api';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Viewusers() {
 
@@ -17,8 +18,12 @@ export default function Viewusers() {
     
   }
   const navigate=useNavigate();
-  const go=()=>{
-    navigate('/add');
+  const update=(e)=>{
+    navigate(`/edit/${e}`);
+    
+  }
+  const deletefrom=(e)=>{
+    navigate(`/edit/${e}`);
     
   }
   return (
@@ -41,10 +46,14 @@ export default function Viewusers() {
           <td>{user.fname}</td>
           <td>{user.lname}</td>
           <td>{user.email}</td>
-          <td>        <button type="button" class="btn btn-link btn-sm btn-rounded" onClick={(e)=>go()}>
+          <td>        <button class="btn btn-link btn-sm btn-rounded" onClick={()=>update(user._id)}>
           Edit
         </button>
+        <button type="button" class="btn btn-link btn-sm btn-rounded" onClick={()=>deletefrom(user._id)}>
+          Delete
+        </button>
 </td>
+
         </tr>
       ))
     }

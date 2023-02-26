@@ -20,10 +20,8 @@ const Nav=()=>{
                 <Tab to='/add'>
                     Adduser
                 </Tab>
-                <Tab to='edit'>
-                    Edituser
-                </Tab>
-                <Tab to='view'>
+               
+                <Tab to='/view'>
                     Viewuser
                 </Tab>
 
