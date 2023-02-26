@@ -1,84 +1,153 @@
 
-        import Button from 'react-bootstrap/Button';
-        import Form from 'react-bootstrap/Form';
-        import { useState } from 'react';
 
-        import 'bootstrap/dist/css/bootstrap.css';
-        import { addUser } from '../service/api';
-import styled from '@emotion/styled';
-        const For=styled('Form')`
-        width:40px;`;
+import * as React from 'react';
+import { FormGroup } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { addUser } from '../service/api';
+import { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
+// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-  
+
 
 const defaultValue={
-    name:'',
-    email:'',
-    password:''
+  fname:'',
+  lname:'',
+  email:'',
+  password:'',
 
 }
-const Adduser=()=>{
-   
+const theme = createTheme();
 
-        const [user, setUser]=useState(defaultValue);
-        const onValue=(e)=>{
-            var x= e.target.value;
-            var y=e.target.name;
-        
-        // console.log(y,x);
-        setUser({...user,[e.target.name]:e.target.value});
-        console.log(user);
-        }    
-        const addUserDetails= async ()=>{
-            await addUser(user);
+const   Adduser=()=> {
 
-        }
-        return(
-<div>
-   <div>
-    <h1 style={{display: 'flex', justifyContent: 'center', alignItems: 'center' ,marginTop:'50px',display: 'flex', justifyContent: 'center', alignItems: 'center' ,marginTop:'50px'}}>
-        login
-
-    </h1>
-   </div>
-
-<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center' ,marginTop:'50px'}}>
+ 
+  const onValueChange=(e)=>{
+      // var x= e.target.value;
+      // var y=e.target.name;
   
-<Form className="w-25">
-      <Form.Group className="mb-3" controlId="formBasicText">
-        <Form.Label>Name</Form.Label>
-        <Form.Control type="text" placeholder="Enter Name" onChange={(e)=>onValue(e)} name="name" />
-        <Form.Text className="text-muted">
-         
-        </Form.Text>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={(e)=>onValue(e)} name="email" />
-        <Form.Text className="text-muted">
-        
-        </Form.Text>
-      </Form.Group>
+  // console.log(y,x);
+  setUser({...user,[e.target.name]:e.target.value});
+  console.log(user);
+  }    
+  const navigate=useNavigate();
+  const addUserDetails= async ()=>{
+      await addUser(user);
+      navigate('/view');
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={(e)=>onValue(e)} name="password"/>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary" type="submit" onClick={(e)=>addUserDetails()}>
-        Submit
-      </Button>
-    </Form>
-</div>
-</div>
-   
+
+  }
+const [user, setUser]=useState(defaultValue);
+  return (
+    <>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            {/* <LockOutlinedIcon /> */}
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <FormGroup></FormGroup>
+          <Box  noValidate  sx={{ mt: 3 }} >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                
+                <TextField
+                  autoComplete="ank"
+                  name="fname"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus 
+                  onChange={(e)=>onValueChange(e)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lname"
+                  autoComplete="family-name"
+                  onChange={(e)=>onValueChange(e)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  onChange={(e)=>onValueChange(e)}
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  onChange={(e)=>onValueChange(e)}
+                />
+              </Grid>
+              {/* <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid> */}
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              onClick={(e)=>addUserDetails(e)}
+              sx={{ mt: 3, mb: 2 }}
+             
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+       
+      </Container>
+    </ThemeProvider>
+    </>
   );
-}
-
-
-  
-
-
+};
 export default Adduser;

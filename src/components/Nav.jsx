@@ -17,13 +17,13 @@ const Nav=()=>{
     return (
         <Header position="static">
             <Toolbar>
-                <Tab to='/Adduser'>
+                <Tab to='/add'>
                     Adduser
                 </Tab>
-                <Tab to='Edituser'>
+                <Tab to='edit'>
                     Edituser
                 </Tab>
-                <Tab to='Viewuser'>
+                <Tab to='view'>
                     Viewuser
                 </Tab>
 
